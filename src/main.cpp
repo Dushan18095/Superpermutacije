@@ -6,7 +6,7 @@ using namespace std;
 int findWeigth(vector<int> node1, vector<int> node2) // Funkcija za izracunavanje tezine veze izmedju argumenta node1 i node2
 {
 	unsigned int weigth = 0;
-	for (unsigned int i = 1; i < node1.size(); i++)
+	for (unsigned int i = 0; i < node1.size(); i++)
 	{
 		weigth = node1.size();
 		for (unsigned int j = i; j < node1.size(); j++)
@@ -25,7 +25,7 @@ int findWeigth(vector<int> node1, vector<int> node2) // Funkcija za izracunavanj
 			return weigth;
 	}
 
-	return 3;
+	return node1.size();
 }
 
 vector<vector<int>> connectGraph(vector<vector<int>> nodes) // Prosledjuju se cvorovi sa vrednostima permutacija i vraca se matrica povezanosti svih cvorova
@@ -42,7 +42,7 @@ vector<vector<int>> connectGraph(vector<vector<int>> nodes) // Prosledjuju se cv
 		}
 		graph.push_back(edges);
 	}
-
+	
 	return graph;
 }
 
@@ -65,7 +65,7 @@ void printPermutations(vector<vector<int>> permutations) // Stampa sve elemenent
 	{
 		for (unsigned int j = 0; j < permutations[0].size(); j++)
 		{
-			cout << permutations[i][j];
+			cout << char(permutations[i][j]+65);
 		}
 		cout << endl;
 	}
@@ -78,7 +78,7 @@ int factorial(int n) // Vraca faktorijel broja
 
 int main()
 {
-	unsigned int numberOfElements = 4; // Broj elemenata skupa
+	unsigned int numberOfElements = 3; // Broj elemenata skupa
 
 	vector<int> perm; // Osnovna permutacija ili skup elemenata
 
