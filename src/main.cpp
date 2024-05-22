@@ -97,6 +97,10 @@ int main()
 	printPermutations(permutations); // Stampanje svih permtutacija
 
 	vector<vector<int>> graph(connectGraph(permutations)); // Pravljenje matrice povezanosti grafa
+	for(int i = 0; i < graph.size(); i++)
+	{
+		graph[i][0] = 0;
+	}
 	printAdjMatrix(graph);								   // Stampanje matrice povezanosti
 
 	return 0;
