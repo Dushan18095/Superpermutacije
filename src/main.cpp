@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits>
 using namespace std;
 
 int findWeigth(vector<int> node1, vector<int> node2) // Funkcija za izracunavanje tezine veze izmedju argumenta node1 i node2
@@ -42,7 +43,7 @@ vector<vector<int>> connectGraph(vector<vector<int>> nodes) // Prosledjuju se cv
 		}
 		graph.push_back(edges);
 	}
-	
+
 	return graph;
 }
 
@@ -76,6 +77,38 @@ int factorial(int n) // Vraca faktorijel broja
 	return (n == 1 || n == 0) ? 1 : factorial(n - 1) * n;
 }
 
+vector<int> tspBruteForce(vector<vector<int>> graph)
+{
+    int n = graph.size();
+    vector<int> vertex;
+    vector<int> path;
+    for (int i = 1; i < n; i++)
+        vertex.push_back(i);
+    int min_cost = INT_MAX;
+    int curr_path = 0;
+    while(next_permutation(vertex.begin(), vertex.end()))
+     {
+        int current_cost = 0;
+        int j = 0;
+        for (int i = 0; i < vertex.size(); i++) {
+            current_cost += graph[j][vertex[i]];
+            j = vertex[i];
+        }
+        current_cost += graph[j][0];
+        if (current_cost < min_cost)
+        {
+            min_cost = min(min_cost, current_cost);
+            path = vertex;
+        }
+        curr_path += 1;
+        if(curr_path % 100 == 0)
+        {
+            cout << curr_path << endl;
+        }
+	}
+    return path;
+}
+
 int main()
 {
 	unsigned int numberOfElements = 3; // Broj elemenata skupa
@@ -101,7 +134,14 @@ int main()
 	{
 		graph[i][0] = 0;
 	}
-	printAdjMatrix(graph);								   // Stampanje matrice povezanosti
+	printAdjMatrix(graph); // Stampanje matrice povezanosti
+
+    vector<int> pathIndex = tspBruteForce(graph);
+    cout << "Shortest path:" << endl << 0 << endl;
+    for(int i = 0; i < pathIndex.size(); i++)
+    {
+        cout << pathIndex[i] << endl;
+    }
 
 	return 0;
 }
