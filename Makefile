@@ -8,6 +8,10 @@ obj/main.o: src/main.cpp
 #obj/cat.o: src/cat.cpp src/include/cat.h
 #	g++ -Wall -c src/cat.cpp -o obj/cat.o
 
+build:
+	g++ -Wall -c src/main.cpp -o obj/main.o
+	g++ -Wall obj/main.o -o project
+
 run: 
 	.\project.exe
 

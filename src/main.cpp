@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <limits>
+#include <climits>
 using namespace std;
 
 int findWeigth(vector<int> node1, vector<int> node2) // Funkcija za izracunavanje tezine veze izmedju argumenta node1 i node2
@@ -105,9 +105,34 @@ vector<int> tspBruteForce(vector<vector<int>> graph)
 }
 
 vector<int> mergePerms(vector<int> perm1, vector<int> perm2)
-{
-    vector<int> result;
-    set_union(perm1.begin(),perm1.end(), perm2.begin(),perm2.end(), back_inserter(result));
+{	
+	if(perm1.size() == 0)
+		return perm2;
+	if(perm2.size() == 0)
+		return perm1;
+	vector<int> result = perm1;
+    
+	int n;
+	int m;
+	for (int i = 0; i < perm2.size(); i++)
+	{
+		n = 0;
+		for (int j = 0; j < perm2.size()-i; j++)
+		{
+			if(perm1[perm1.size()-perm2.size()+i+j] == perm2[j])
+			{
+				n++;
+			}
+		}
+		if(n == perm2.size()-i)
+		{
+			vector<int>::iterator it = perm2.begin();
+			advance(it, n);
+			result.insert(result.end(), it, perm2.end());
+			return result;
+		}
+	}
+	//set_union(perm1.begin(), perm1.end(), perm2.begin(), perm2.end(), back_inserter(result));
     return result;
 }
 
@@ -144,12 +169,16 @@ int main()
     {
         cout << pathIndex[i] << endl;
     }
-    vector<int> m = mergePerms(permutations[0], permutations[3]);
+    
+	
     vector<int> superpermIndex;
     for (unsigned int i = 0; i < pathIndex.size(); i++)
     {
-        superpermIndex = mergePerms(superpermIndex, permutations[pathIndex[i]);
+		superpermIndex = mergePerms(superpermIndex, permutations[pathIndex[i]]);
     }
-
+	for(int num : superpermIndex)
+	{
+		cout << char(num+65);
+	}
 	return 0;
 }
