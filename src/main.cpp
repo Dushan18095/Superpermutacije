@@ -85,7 +85,6 @@ vector<int> tspBruteForce(vector<vector<int>> graph)
     for (int i = 1; i < n; i++)
         vertex.push_back(i);
     int min_cost = INT_MAX;
-    int curr_path = 0;
     while(next_permutation(vertex.begin(), vertex.end()))
      {
         int current_cost = 0;
@@ -100,13 +99,16 @@ vector<int> tspBruteForce(vector<vector<int>> graph)
             min_cost = min(min_cost, current_cost);
             path = vertex;
         }
-        curr_path += 1;
-        if(curr_path % 100 == 0)
-        {
-            cout << curr_path << endl;
-        }
 	}
+	path.insert(path.begin(), 0);
     return path;
+}
+
+vector<int> mergePerms(vector<int> perm1, vector<int> perm2)
+{
+    vector<int> result;
+    set_union(perm1.begin(),perm1.end(), perm2.begin(),perm2.end(), back_inserter(result));
+    return result;
 }
 
 int main()
@@ -137,10 +139,16 @@ int main()
 	printAdjMatrix(graph); // Stampanje matrice povezanosti
 
     vector<int> pathIndex = tspBruteForce(graph);
-    cout << "Shortest path:" << endl << 0 << endl;
+    cout << "Shortest path by index:" << endl;
     for(int i = 0; i < pathIndex.size(); i++)
     {
         cout << pathIndex[i] << endl;
+    }
+    vector<int> m = mergePerms(permutations[0], permutations[3]);
+    vector<int> superpermIndex;
+    for (unsigned int i = 0; i < pathIndex.size(); i++)
+    {
+        superpermIndex = mergePerms(superpermIndex, permutations[pathIndex[i]);
     }
 
 	return 0;
