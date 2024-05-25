@@ -45,7 +45,10 @@ vector<vector<int>> connectGraph(vector<vector<int>> nodes) // Prosledjuju se cv
 		}
 		graph.push_back(edges);
 	}
-
+	for (unsigned int i = 0; i < graph.size(); i++)
+	{
+		graph[i][0] = 0;
+	}
 	return graph;
 }
 
@@ -198,7 +201,7 @@ vector<int> tspDynamicProgramming(vector<vector<int>> graph) // Egzaktni algorit
 
 int main()
 {
-	unsigned int numberOfElements = 3; // Broj elemenata skupa
+	unsigned int numberOfElements = 4; // Broj elemenata skupa
 
 	vector<int> perm; // Osnovna permutacija ili skup elemenata
 
@@ -207,7 +210,7 @@ int main()
 		perm.push_back(i);
 	}
 
-	vector<vector<int>> permutations; // sve permutacije skupa perm
+	vector<vector<int>> permutations; // sve permutacije vektora perm
 
 	do
 	{
@@ -217,15 +220,12 @@ int main()
 	printPermutations(permutations); // Stampanje svih permtutacija
 
 	vector<vector<int>> graph(connectGraph(permutations)); // Pravljenje matrice povezanosti grafa
-	for (unsigned int i = 0; i < graph.size(); i++)
-	{
-		graph[i][0] = 0;
-	}
+	
 	//printAdjMatrix(graph); // Stampanje matrice povezanosti
 
 	vector<int> pathIndex = nearestNeighbor(graph); // Koristi nearestNeighbor umesto tspBruteForce
 	cout << "Shortest path by index:" << endl;
-	for (int i = 0; i < pathIndex.size(); i++)
+	for (unsigned int i = 0; i < pathIndex.size(); i++)
 	{
 		cout << pathIndex[i] << endl;
 	}
